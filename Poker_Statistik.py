@@ -1,13 +1,18 @@
 import random
 
-def five_cards():
+def cards(anz):
     cards = []
-    f = [0,0,0,0,0]
-    f_nr =[0,0,0,0,0]
+    f = []
+    f_nr =[]
+    for i in range(anz):
+        f.append(None)
+        f_nr.append(None)
     for i in range(52):
         cards.append(i+1)
-    for j in range(5):
-        c = cards[random.randint(0, 52)]
+    for j in range(anz):
+        x = random.randrange(len(cards) - j)
+        cards[x], cards[len(cards) - 1 - j] = cards[len(cards) - 1 - j], cards[x]
+        c = cards[x]
         if (c % 4 == 0):
             f[j] = "Spade"
             f_nr[j] = "1"
@@ -22,7 +27,7 @@ def five_cards():
             f_nr[j] = "4"
         if(c % 13 == 0):
             f[j] = f[j] + " 2"
-            f_nr[j] = 2
+            f_nr[j] = f_nr[j] + "02"
         if (c % 13 == 1):
             f[j] = f[j] + " 3"
             f_nr[j] = f_nr[j] + "03"
@@ -91,4 +96,4 @@ def straight_flush(): #Straße in gleicher Farbe/Symbol
 def royal_flush(): #Höchste Straße in gleicher Farbe/Symbol: 10,B,D,K,A
     pass
 
-print(five_cards())
+print(cards(5))
