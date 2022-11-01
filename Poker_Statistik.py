@@ -163,5 +163,7 @@ def statistics(anz_cards,anz):
 
     #return stat, percent_stat
 
-statistics(7,100000)
+
+if __name__ == "__main__":
+    statistics(7,100000)
 
