@@ -1,99 +1,167 @@
-import random
+import collections
+from optparse import Values
+import numpy as np
+from itertools import count, product
+from random import shuffle
 
-def cards(anz):
-    cards = []
-    f = []
-    f_nr =[]
-    for i in range(anz):
-        f.append(None)
-        f_nr.append(None)
-    for i in range(52):
-        cards.append(i+1)
-    for j in range(anz):
-        x = random.randrange(len(cards) - j)
-        cards[x], cards[len(cards) - 1 - j] = cards[len(cards) - 1 - j], cards[x]
-        c = cards[x]
-        if (c % 4 == 0):
-            f[j] = "Spade"
-            f_nr[j] = "1"
-        if (c % 4 == 1):
-            f[j] = "Heart"
-            f_nr[j] = "2"
-        if (c % 4 == 2):
-            f[j] = "Clover"
-            f_nr[j] = "3"
-        if (c % 4 == 3):
-            f[j] = "Diamond"
-            f_nr[j] = "4"
-        if(c % 13 == 0):
-            f[j] = f[j] + " 2"
-            f_nr[j] = f_nr[j] + "02"
-        if (c % 13 == 1):
-            f[j] = f[j] + " 3"
-            f_nr[j] = f_nr[j] + "03"
-        if (c % 13 == 2):
-            f[j] = f[j] + " 4"
-            f_nr[j] = f_nr[j] + "04"
-        if (c % 13 == 3):
-            f[j] = f[j] + " 5"
-            f_nr[j] = f_nr[j] + "05"
-        if (c % 13 == 4):
-            f[j] = f[j] + " 6"
-            f_nr[j] = f_nr[j] + "06"
-        if (c % 13 == 5):
-            f[j] = f[j] + " 7"
-            f_nr[j] = f_nr[j] + "07"
-        if (c % 13 == 6):
-            f[j] = f[j] + " 8"
-            f_nr[j] = f_nr[j] + "08"
-        if (c % 13 == 7):
-            f[j] = f[j] + " 9"
-            f_nr[j] = f_nr[j] + "09"
-        if (c % 13 == 8):
-            f[j] = f[j] + " 10"
-            f_nr[j] = f_nr[j] + "10"
-        if (c % 13 == 9):
-            f[j] = f[j] + " B"
-            f_nr[j] = f_nr[j] + "11"
-        if (c % 13 == 10):
-            f[j] = f[j] + " D"
-            f_nr[j] = f_nr[j] + "12"
-        if (c % 13 == 11):
-            f[j] = f[j] + " K"
-            f_nr[j] = f_nr[j] + "13"
-        if (c % 13 == 12):
-            f[j] = f[j] + " A"
-            f_nr[j] = f_nr[j] + "14"
-    return f, f_nr
+
+def sort_cards(cards):
+    txt = " ".join(cards)
+    numbers =  [int(s) for s in txt.split() if s.isdigit()]  
+    for iter_num in range(len(numbers)-1,0,-1):
+      for idx in range(iter_num):
+         if numbers[idx]>numbers[idx+1]:
+            temp = numbers[idx]
+            numbers[idx] = numbers[idx+1]
+            numbers[idx+1] = temp    
+    return numbers
+   
+
+def draw_cards(anz):
+    colors = ["Clover ","Diamond ","Heart ","Spade "] 
+    values = ["2 ","3 ","4 ","5 ","4 ","6 ","7 ","8 ","9 ","10 ","11 ","12 ","13 ", "14 "]
+    cards = list(r + s for r, s in product(values, colors))
+    shuffle(cards)
+    hand = cards[:anz]
+    return hand
+
 
 def highest(): #höchste Karte
-    pass
+    return True
 
-def pair(): #zwei gleiche Zahlen
-    pass
+def pair(numbers): #zwei gleiche Zahlen
+    if 2 in set([numbers.count(n) for n in numbers]):
+        return True
+    else:
+        return False
 
-def two_pair(): #2 x 2 gleiche Zahlen
-    pass
+def two_pair(numbers): #2 x 2 gleiche Zahlen
+    if len([k for k, v in collections.Counter(numbers).items() for _i in range(v // 2)]) == 2:
+        return True
+    return False
 
-def triple(): #drei gleiche Zahlen
-    pass
+def triple(numbers): #drei gleiche Zahlen
+    if 3 in set([numbers.count(n) for n in numbers]):
+        return True
+    return False
 
-def straight(): #Straße A,2,3,4,5,6,7,8,9,10,B,D,K,A
-    pass
+def straight(numbers): #Straße A,2,3,4,5,6,7,8,9,10,B,D,K,A
+    s = 1
+    a = [14,2,3,4,5]
+    for i in range(len(numbers)-1):
+        if numbers[i] == numbers[i+1] - 1:
+            s = s+1
+    if s >= 5:
+        return True
+    if all(value in numbers for value in a):
+        return True
+    return False
 
-def flush(): #5 gleiche Farben/Symbole
-    pass
+def flush(hand): #5 gleiche Farben/Symbole
+    d = 0
+    s = 0
+    c = 0
+    h = 0
+    for i in range(len(hand)):
+        if 'Diamond' in hand[i]:
+            d = d + 1
+        if 'Spade' in hand[i]:
+            s = s + 1
+        if 'Clover' in hand[i]:
+            c = c + 1
+        if 'Heart' in hand[i]:
+            h = h + 1
+    if d >= 5 or s >= 5 or c >= 5 or h >= 5:
+        return True
+    return False
+        
+def full_house(numbers): #Drilling + Paar
+    if pair(numbers) and triple(numbers):
+        return True
+    return False
 
-def full_house(): #Drilling + Paar
-    pass
+def poker(numbers): #vier gleiche Zahlen
+    if 4 in set([numbers.count(n) for n in numbers]):
+        return True
+    return False
 
-def poker(): #vier gleiche Zahlen
-    pass
+def straight_flush(hand, numbers): #Straße in gleicher Farbe/Symbol
+    if flush(hand) and straight(numbers):
+        return True
+    return False
 
-def straight_flush(): #Straße in gleicher Farbe/Symbol
-    pass
+def royal_flush(hand, numbers): #Höchste Straße in gleicher Farbe/Symbol: 10,B,D,K,A
+    r = [10,11,12,13,14]
+    if flush(hand):
+        if all(value in numbers for value in r):
+            return True
+    return False
 
-def royal_flush(): #Höchste Straße in gleicher Farbe/Symbol: 10,B,D,K,A
-    pass
+def count_best(hand, numbers):
+    if royal_flush(hand, numbers):
+        return 'royal_flush'
+    if straight_flush(hand, numbers):
+        return 'straight_flush'
+    if poker(numbers):
+        return 'poker'
+    if full_house(numbers):
+        return 'full_house'
+    if flush(hand):
+        return 'flush'
+    if straight(numbers):
+        return 'straight'
+    if triple(numbers):
+        return 'triple'
+    if two_pair(numbers):
+        return 'two_pair'
+    if pair(numbers):
+        return 'pair'
+    else:
+         return 'highest'
 
-print(cards(5))
+
+
+def statistics(anz_cards,anz):
+    stat = {'royal_flush': 0, 'straight_flush': 0, 'poker': 0, 'full_house': 0, 'flush': 0,\
+         'straight': 0, 'triple': 0, 'two_pair': 0, 'pair': 0, 'highest': 0}
+    percent_stat = {'royal_flush': 0, 'straight_flush': 0, 'poker': 0, 'full_house': 0, 'flush': 0,\
+         'straight': 0, 'triple': 0, 'two_pair': 0, 'pair': 0, 'highest': 0}
+
+    for i in range(anz):
+        hand = draw_cards(anz_cards)
+        numbers = sort_cards(hand)
+        stat[count_best(hand,numbers)] = stat[count_best(hand,numbers)] + 1
+    percent_stat['royal_flush'] = "%.4f" % ((stat['royal_flush'] / anz) * 100)
+    percent_stat['straight_flush'] = "%.4f" % ((stat['straight_flush'] / anz) * 100)
+    percent_stat['poker'] = "%.2f" % ((stat['poker'] / anz) * 100)
+    percent_stat['full_house'] = "%.2f" % ((stat['full_house'] / anz) * 100)
+    percent_stat['flush'] = "%.2f" % ((stat['flush'] / anz) * 100)
+    percent_stat['straight'] = "%.2f" % ((stat['straight'] / anz) * 100)
+    percent_stat['triple'] = "%.2f" % ((stat['triple'] / anz) * 100)
+    percent_stat['two_pair'] = "%.2f" % ((stat['two_pair'] / anz) * 100)
+    percent_stat['pair'] = "%.2f" % ((stat['pair'] / anz) * 100)
+    percent_stat['highest'] = "%.2f" % ((stat['highest'] / anz) * 100)
+
+    l1 = [stat['royal_flush'],stat['straight_flush'],stat['poker'],stat['full_house'],stat['flush'],stat['straight'],stat['triple'],stat['two_pair'],stat['pair'], stat['highest']]
+    s = sum(l1)
+    l = [float(percent_stat['royal_flush']),float(percent_stat['straight_flush']),float(percent_stat['poker']), float(percent_stat['full_house']), \
+        float(percent_stat['flush']), float(percent_stat['straight']), float(percent_stat['triple']), float(percent_stat['two_pair']), float(percent_stat['pair']), float(percent_stat['highest'])]
+
+    print('Number of Cards:\t',anz_cards)
+    print('Number of Trials:\t',anz)
+    print('Royal Flush:\t\t\t\t\t', stat['royal_flush'], '\t\t|\t\t', percent_stat['royal_flush'],'%')
+    print('Straight Flush:\t\t\t\t', stat['straight_flush'], '\t\t|\t\t', percent_stat['straight_flush'],'%')
+    print('Poker:\t\t\t\t\t\t\t', stat['poker'], '\t\t|\t\t', percent_stat['poker'],'%')
+    print('Full House:\t\t\t\t\t', stat['full_house'], '\t\t|\t\t', percent_stat['full_house'],'%')
+    print('Flush:\t\t\t\t\t\t\t', stat['flush'], '\t\t|\t\t', percent_stat['flush'],'%')
+    print('Straight:\t\t\t\t\t\t', stat['straight'], '\t\t|\t\t', percent_stat['straight'],'%')
+    print('Triple:\t\t\t\t\t\t', stat['triple'], '\t\t|\t\t', percent_stat['triple'],'%')
+    print('Two Pair:\t\t\t\t\t', stat['two_pair'], '\t\t|\t\t', percent_stat['two_pair'],'%')
+    print('Pair:\t\t\t\t\t\t\t', stat['pair'], '\t\t|\t\t', percent_stat['pair'],'%')
+    print('Highest Card:\t\t\t', stat['highest'], '\t\t|\t\t', percent_stat['highest'],'%')
+    print('Sum:\t\t\t\t\t\t', s, '\t\t|\t\t', "%.2f" % sum(l),'%')
+
+    #return stat, percent_stat
+
+statistics(7,100000)
+
