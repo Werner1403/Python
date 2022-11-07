@@ -1,7 +1,5 @@
 import collections
-from optparse import Values
-import numpy as np
-from itertools import count, product
+from itertools import product
 from random import shuffle
 
 
@@ -71,8 +69,14 @@ def flush(hand): #5 gleiche Farben/Symbole
             c = c + 1
         if 'Heart' in hand[i]:
             h = h + 1
-    if d >= 5 or s >= 5 or c >= 5 or h >= 5:
-        return True
+    if d >= 5:
+        return 'Diamond'
+    if s >= 5:
+        return 'Spade'
+    if c >= 5:
+        return 'Clover'
+    if h >= 5:
+        return 'Heart'
     return False
         
 def full_house(numbers): #Drilling + Paar
@@ -85,28 +89,33 @@ def poker(numbers): #vier gleiche Zahlen
         return True
     return False
 
-def straight_flush(hand, numbers): #Straße in gleicher Farbe/Symbol
-    if flush(hand) and straight(numbers):
-        return True
+def straight_flush(hand): #Straße in gleicher Farbe/Symbol
+    numbers = sort_cards(hand)
+    if flush(hand) != False:
+        matching = [s for s in hand if flush(hand) in s]
+        if straight(sort_cards(matching)):
+            return True
     return False
 
-def royal_flush(hand, numbers): #Höchste Straße in gleicher Farbe/Symbol: 10,B,D,K,A
+def royal_flush(hand): #Höchste Straße in gleicher Farbe/Symbol: 10,B,D,K,A
     r = [10,11,12,13,14]
-    if flush(hand):
-        if all(value in numbers for value in r):
+    if flush(hand) != False:
+        matching = [s for s in hand if flush(hand) in s]
+        matching_n = sort_cards(matching)
+        if all(value in matching_n for value in r):
             return True
     return False
 
 def count_best(hand, numbers):
-    if royal_flush(hand, numbers):
+    if royal_flush(hand):
         return 'royal_flush'
-    if straight_flush(hand, numbers):
+    if straight_flush(hand):
         return 'straight_flush'
     if poker(numbers):
         return 'poker'
     if full_house(numbers):
         return 'full_house'
-    if flush(hand):
+    if flush(hand) != False:
         return 'flush'
     if straight(numbers):
         return 'straight'
@@ -149,17 +158,17 @@ def statistics(anz_cards,anz):
 
     print('Number of Cards:\t',anz_cards)
     print('Number of Trials:\t',anz)
-    print('Royal Flush:\t\t\t\t\t', stat['royal_flush'], '\t\t|\t\t', percent_stat['royal_flush'],'%')
-    print('Straight Flush:\t\t\t\t', stat['straight_flush'], '\t\t|\t\t', percent_stat['straight_flush'],'%')
-    print('Poker:\t\t\t\t\t\t\t', stat['poker'], '\t\t|\t\t', percent_stat['poker'],'%')
-    print('Full House:\t\t\t\t\t', stat['full_house'], '\t\t|\t\t', percent_stat['full_house'],'%')
-    print('Flush:\t\t\t\t\t\t\t', stat['flush'], '\t\t|\t\t', percent_stat['flush'],'%')
-    print('Straight:\t\t\t\t\t\t', stat['straight'], '\t\t|\t\t', percent_stat['straight'],'%')
-    print('Triple:\t\t\t\t\t\t', stat['triple'], '\t\t|\t\t', percent_stat['triple'],'%')
-    print('Two Pair:\t\t\t\t\t', stat['two_pair'], '\t\t|\t\t', percent_stat['two_pair'],'%')
-    print('Pair:\t\t\t\t\t\t\t', stat['pair'], '\t\t|\t\t', percent_stat['pair'],'%')
-    print('Highest Card:\t\t\t', stat['highest'], '\t\t|\t\t', percent_stat['highest'],'%')
-    print('Sum:\t\t\t\t\t\t', s, '\t\t|\t\t', "%.2f" % sum(l),'%')
+    print('Royal Flush:\t', stat['royal_flush'], '\t\t|\t\t', percent_stat['royal_flush'],'%')
+    print('Straight Flush:\t', stat['straight_flush'], '\t\t|\t\t', percent_stat['straight_flush'],'%')
+    print('Poker:\t', stat['poker'], '\t\t|\t\t', percent_stat['poker'],'%')
+    print('Full House:\t', stat['full_house'], '\t\t|\t\t', percent_stat['full_house'],'%')
+    print('Flush:\t', stat['flush'], '\t\t|\t\t', percent_stat['flush'],'%')
+    print('Straight:\t', stat['straight'], '\t\t|\t\t', percent_stat['straight'],'%')
+    print('Triple:\t', stat['triple'], '\t\t|\t\t', percent_stat['triple'],'%')
+    print('Two Pair:\t', stat['two_pair'], '\t\t|\t\t', percent_stat['two_pair'],'%')
+    print('Pair:\t', stat['pair'], '\t\t|\t\t', percent_stat['pair'],'%')
+    print('Highest Card:\t', stat['highest'], '\t\t|\t\t', percent_stat['highest'],'%')
+    print('Sum:\t', s, '\t\t|\t\t', "%.2f" % sum(l),'%')
 
     #return stat, percent_stat
 
