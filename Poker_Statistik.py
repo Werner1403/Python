@@ -165,19 +165,19 @@ def statistics(anz_cards,anz):
          float(percent_stat['triple']), float(percent_stat['two_pair']), \
          float(percent_stat['pair']), float(percent_stat['highest'])]
 
-    print('Number of Cards:\t',anz_cards)
+    print('Number of Cards: \t',anz_cards)
     print('Number of Trials:\t',anz)
-    print('Royal Flush:\t', percent_stat['royal_flush'],'%')
-    print('Straight Flush:\t', percent_stat['straight_flush'],'%')
-    print('Poker:\t\t', percent_stat['poker'],'%')
-    print('Full House:\t', percent_stat['full_house'],'%')
-    print('Flush:\t\t', percent_stat['flush'],'%')
-    print('Straight:\t', percent_stat['straight'],'%')
-    print('Triple:\t\t', percent_stat['triple'],'%')
-    print('Two Pair:\t', percent_stat['two_pair'],'%')
-    print('Pair:\t\t', percent_stat['pair'],'%')
-    print('Highest Card:\t', percent_stat['highest'],'%')
-    print('Sum:\t\t', "%.2f" % sum(l),'%')
+    print('Royal Flush:     \t', percent_stat['royal_flush'],'%')
+    print('Straight Flush:  \t', percent_stat['straight_flush'],'%')
+    print('Poker:           \t', percent_stat['poker'],'%')
+    print('Full House:      \t', percent_stat['full_house'],'%')
+    print('Flush:           \t', percent_stat['flush'],'%')
+    print('Straight:        \t', percent_stat['straight'],'%')
+    print('Triple:          \t', percent_stat['triple'],'%')
+    print('Two Pair:        \t', percent_stat['two_pair'],'%')
+    print('Pair:            \t', percent_stat['pair'],'%')
+    print('Highest Card:    \t', percent_stat['highest'],'%')
+    print('Sum:             \t', "%.2f" % sum(l),'%')
 
     #return stat, percent_stat
 
