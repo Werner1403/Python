@@ -21,6 +21,7 @@ def draw_cards(anz):
     cards = list(r + s for r, s in product(values, colors))
     shuffle(cards)
     hand = cards[:anz]
+    print(cards)
     return hand
 
 
@@ -90,7 +91,6 @@ def poker(numbers): #vier gleiche Zahlen
     return False
 
 def straight_flush(hand): #Straße in gleicher Farbe/Symbol
-    numbers = sort_cards(hand)
     if flush(hand) != False:
         matching = [s for s in hand if flush(hand) in s]
         if straight(sort_cards(matching)):
@@ -175,4 +175,3 @@ def statistics(anz_cards,anz):
 
 if __name__ == "__main__":
     statistics(7,100000)
-
