@@ -22,7 +22,6 @@ def draw_cards(anz):
     cards = list(r + s for r, s in product(values, colors))
     shuffle(cards)
     hand = cards[:anz]
-    print(cards)
     return hand
 
 
@@ -168,30 +167,34 @@ def statistics(anz_cards,anz):
 
     print('Number of Cards:\t',anz_cards)
     print('Number of Trials:\t',anz)
-    print('Royal Flush:\t', stat['royal_flush'], '\t\t|\t\t',\
+    print('Royal Flush:\t', stat['royal_flush'], '\t| ',\
          percent_stat['royal_flush'],'%')
     print('Straight Flush:\t', stat['straight_flush'],\
-         '\t\t|\t\t', percent_stat['straight_flush'],'%')
-    print('Poker:\t', stat['poker'], '\t\t|\t\t',\
+         '\t|', percent_stat['straight_flush'],'%')
+    print('Poker:\t', stat['poker'], '\t| ',\
          percent_stat['poker'],'%')
-    print('Full House:\t', stat['full_house'], '\t\t|\t\t',\
+    print('Full House:\t', stat['full_house'], '\t| ',\
          percent_stat['full_house'],'%')
-    print('Flush:\t', stat['flush'], '\t\t|\t\t',\
+    print('Flush:\t', stat['flush'], '\t| ',\
          percent_stat['flush'],'%')
-    print('Straight:\t', stat['straight'], '\t\t|\t\t',\
+    print('Straight:\t', stat['straight'], '\t| ',\
          percent_stat['straight'],'%')
-    print('Triple:\t', stat['triple'], '\t\t|\t\t',\
+    print('Triple:\t', stat['triple'], '\t| ',\
          percent_stat['triple'],'%')
-    print('Two Pair:\t', stat['two_pair'], '\t\t|\t\t',\
+    print('Two Pair:\t', stat['two_pair'], '\t| ',\
          percent_stat['two_pair'],'%')
-    print('Pair:\t', stat['pair'], '\t\t|\t\t',\
+    print('Pair:\t', stat['pair'], '\t| ',\
          percent_stat['pair'],'%')
-    print('Highest Card:\t', stat['highest'], '\t\t|\t\t',\
+    print('Highest Card:\t', stat['highest'], '\t| ',\
          percent_stat['highest'],'%')
     print('Sum:\t', s, '\t\t|\t\t', "%.2f" % sum(l),'%')
 
     #return stat, percent_stat
 
+def main():
+    times = input("Wie oft Karten ziehen?")
+    c = input("Wie viele Karten ziehen?")
+    statistics(int(c),int(times))
 
 if __name__ == "__main__":
-    statistics(7,100000)
+    main()
