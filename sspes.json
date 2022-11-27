@@ -1,0 +1,19 @@
+{
+    "player": {
+        "won": 5,
+        "stein": 2,
+        "schere": 2,
+        "papier": 2,
+        "echse": 2,
+        "spock": 2
+    },
+    "comp": {
+        "won": 3,
+        "stein": 1,
+        "schere": 4,
+        "papier": 1,
+        "echse": 1,
+        "spock": 3
+    },
+    "draw": 2
+}
