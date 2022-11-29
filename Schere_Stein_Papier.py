@@ -95,4 +95,5 @@ def main():
     while 1:
         print(logic(player_fig(),comp_fig()))
 
-main()
+if __name__ == '__main__':
+    main()
