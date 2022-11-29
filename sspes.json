@@ -5,13 +5,13 @@
         "schere": 2,
         "papier": 2,
         "echse": 2,
-        "spock": 2
+        "spock": 3
     },
     "comp": {
-        "won": 3,
+        "won": 4,
         "stein": 1,
         "schere": 4,
-        "papier": 1,
+        "papier": 2,
         "echse": 1,
         "spock": 3
     },

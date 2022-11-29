@@ -1,7 +1,7 @@
 import collections
 from itertools import product
 from random import shuffle
-
+from matplotlib import pyplot as plt
 
 def sort_cards(cards):
     txt = " ".join(cards)
@@ -179,12 +179,32 @@ def statistics(anz_cards,anz):
     print('Highest Card:    \t', percent_stat['highest'],'%')
     print('Sum:             \t', "%.2f" % sum(l),'%')
 
+    x = ["Highest Card", "Pair", "Two-Pair", "Triple", "Straight", "Flush",
+         "Full House", "Poker", "Straight Flush", "Royal Flush"]
+    y = [stat['highest'], stat['pair'], stat['two_pair'], stat['triple'], stat['straight'],
+         stat['flush'], stat['full_house'], stat['poker'], stat['straight_flush'],
+         stat['royal_flush']]
+    plt.bar(x, y, align="center")
+    plt.title("Poker Ergebnisse")
+    plt.xlabel("Ergebnis")
+    plt.ylabel("Anzahl")
+    plt.xticks(rotation=90)
+    plt.show()
+    
     #return stat, percent_stat
 
 def main():
-    times = input("Wie oft Karten ziehen?")
-    c = input("Wie viele Karten ziehen?")
-    statistics(int(c),int(times))
+    cards = input("Wie viele Karten sollen pro Ziehung gezogen werden?")
+    while int(cards) >= 53 or int(cards) <= 0:
+        print("Ungültige Eingabe!")
+        cards = input("Wie viele Karten sollen pro Ziehung gezogen werden?")
+
+    times = input("Wie viele Ziehungen sollen durchgeführt werden?")
+    while int(times) <= 0:
+        print("Ungültige Eingabe!")
+        times = input("Wie viele Ziehungen sollen durchgeführt werden?")
+
+    statistics(int(cards),int(times))
 
 if __name__ == "__main__":
     main()
