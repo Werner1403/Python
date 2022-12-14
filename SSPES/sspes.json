@@ -2,25 +2,14 @@
     "players": {
         "admin": {
             "player": {
-                "won": 6,
-                "stein": 3,
-                "schere": 2,
-                "papier": 2,
-                "echse": 3,
-                "spock": 3
+                "won": 1,
+                "schere": 0,
+                "stein": 1,
+                "papier": 0,
+                "echse": 0,
+                "spock": 0
             },
             "comp": {
-                "won": 4,
-                "stein": 1,
-                "schere": 5,
-                "papier": 2,
-                "echse": 2,
-                "spock": 3
-            },
-            "draw": 3
-        },
-        "werner": {
-            "player": {
                 "won": 0,
                 "schere": 0,
                 "stein": 0,
@@ -28,15 +17,26 @@
                 "echse": 1,
                 "spock": 0
             },
-            "comp": {
-                "won": 1,
+            "draw": 0
+        },
+        "werner": {
+            "player": {
+                "won": 2,
                 "schere": 1,
-                "stein": 0,
+                "stein": 1,
+                "papier": 1,
+                "echse": 1,
+                "spock": 1
+            },
+            "comp": {
+                "won": 0,
+                "schere": 1,
+                "stein": 1,
                 "papier": 0,
                 "echse": 0,
-                "spock": 0
+                "spock": 3
             },
-            "draw": 0
+            "draw": 3
         },
         "test": {
             "player": {

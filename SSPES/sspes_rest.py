@@ -17,3 +17,4 @@ class player_stats(Resource):
                 return json.dumps(data["players"][p], indent=4)
             else:
                 return {"Message" : "not found"}
+            
