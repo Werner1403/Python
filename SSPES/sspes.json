@@ -21,20 +21,20 @@
         },
         "werner": {
             "player": {
-                "won": 2,
-                "schere": 1,
+                "won": 4,
+                "schere": 4,
                 "stein": 1,
                 "papier": 1,
                 "echse": 1,
-                "spock": 1
+                "spock": 2
             },
             "comp": {
-                "won": 0,
+                "won": 2,
                 "schere": 1,
-                "stein": 1,
-                "papier": 0,
+                "stein": 3,
+                "papier": 1,
                 "echse": 0,
-                "spock": 3
+                "spock": 4
             },
             "draw": 3
         },

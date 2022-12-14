@@ -85,6 +85,7 @@ def comp_fig_hard(p):
 def player_fig():
     figs = { 0 : "Stein", 1 : "Papier", 2 : "Schere", 3 : "Echse", 4 : "Spock"}
     i = input("Stein, Papier, Schere, Echse, Spock?")
+    print("\n")
     valid = False
     while not valid:
         if i.lower() == "stein":
@@ -201,7 +202,6 @@ def print_stats(p):
     
 
 def print_menu():
-    print()
     print("-----------------------------")
     print("Select an option:")
     print("1. Play against comp (normal)")
@@ -210,6 +210,7 @@ def print_menu():
     print("4. Show statistics")
     print("5. exit")
     print("-----------------------------")
+    print()
 
 
 def main():
@@ -219,7 +220,6 @@ def main():
         print_menu()
         option = input("Please make a choice >> ")
         if option == "1":
-            print("\n")
             print(logic(player_fig(), comp_fig(), p))
         elif option == "2":
             print("\n")
