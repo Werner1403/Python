@@ -10,7 +10,10 @@
         <button><a href="http://127.0.0.1:5000/stats">Click!</a></button>
 
         <form action = "/success" method = "post" enctype="multipart/form-data">
-            <p> Upload a Json with stats and players: </p>  
+
+            <p> Download the JSON manipulate it and Upload it to change the stats for the players! </p>  
+            <a href="{{ url_for('.download_file') }}">Download</a>
+            <br>
             <input type="file" name="file" />  
             <input type = "submit" value="Upload"> 
         </form>   
