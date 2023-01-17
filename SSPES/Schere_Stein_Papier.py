@@ -1,6 +1,9 @@
 import json
 import random
+import numpy as np
 import requests
+import matplotlib.pyplot as plt
+from datetime import datetime
 
 #Rules:
         #Schere schneidet Papier         
@@ -82,6 +85,7 @@ def comp_fig_hard(p):
 def player_fig():
     figs = { 0 : "Stein", 1 : "Papier", 2 : "Schere", 3 : "Echse", 4 : "Spock"}
     i = input("Stein, Papier, Schere, Echse, Spock?")
+    print("\n")
     valid = False
     while not valid:
         if i.lower() == "stein":
@@ -107,7 +111,7 @@ def logic(p_fig, c_fig, p):
     figs = { 0 : "Stein", 1 : "Papier", 2 : "Schere", 3 : "Echse", 4 : "Spock"}
     with open('SSPES/sspes.json', 'r+') as f:
         data = json.load(f)
-        if p in data:
+        if p in data["players"]:
             data["players"][str(p)]["player"][str(p_fig).lower()] = data["players"][str(p)]["player"][str(p_fig).lower()] + 1
             data["players"][str(p)]["comp"][str(c_fig).lower()] = data["players"][str(p)]["comp"][str(c_fig).lower()] + 1
         else:
@@ -169,11 +173,35 @@ def print_stats(p):
     
     print("Player won: " + str(data["player"]["won"]))
     print("Computer won: " + str(data["comp"]["won"]))
-    print("for more info visit:")
+    print("for JSON-File visit:")
     print(url)
+    
+    su = data["player"]["schere"] + data["player"]["stein"] + data["player"]["papier"] + data["player"]["echse"] + data["player"]["spock"]
+    labels = 'Schere', 'Stein', 'Papier', 'Echse', 'Spock'
+    s1 = (data["player"]["schere"]/su)*100
+    s2 = (data["player"]["stein"]/su)*100
+    s3 = (data["player"]["papier"]/su)*100
+    s4 = (data["player"]["echse"]/su)*100
+    s5 = (data["player"]["spock"]/su)*100
+    sizes = [s1,s2,s3,s4,s5]
+    fig1, (ax1, ax2) = plt.subplots(2)
+    ax1.pie(sizes, labels=labels, autopct='%1.1f%%', startangle=90)
+    ax1.axis('equal')
+    win = ('won', 'lost', 'draw')
+    anzahl = [int(data["player"]["won"]), int(data["comp"]["won"]), int(data["draw"])]
+    y_pos = np.arange(len(win))
+    
+    plt.bar(y_pos, anzahl, align='center')
+    plt.xticks(y_pos, win)
+    plt.tick_params(axis='x',which='both', bottom=False)
+    z = str(datetime.today().strftime('%Y-%m-%d_%H-%M'))
+    fig1 = plt.gcf()
+    plt.show()
+    plt.draw()
+    fig1.savefig('SSPES/images/' + p + '_' + z + '.png', dpi=100)
+    
 
 def print_menu():
-    print()
     print("-----------------------------")
     print("Select an option:")
     print("1. Play against comp (normal)")
@@ -182,6 +210,7 @@ def print_menu():
     print("4. Show statistics")
     print("5. exit")
     print("-----------------------------")
+    print()
 
 
 def main():
@@ -191,7 +220,6 @@ def main():
         print_menu()
         option = input("Please make a choice >> ")
         if option == "1":
-            print("\n")
             print(logic(player_fig(), comp_fig(), p))
         elif option == "2":
             print("\n")
