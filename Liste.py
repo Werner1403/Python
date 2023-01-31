@@ -109,6 +109,11 @@ class List:
         self.startElem = ListElement('start')
         return le
 
+    def extend(self, list):
+        le = self.startElem.getNextElem()
+        while le.getNextElem() != None:
+            pass
+
 
     #TODO letztes element von standpunkt aus    
     # def sort(self, arr):
