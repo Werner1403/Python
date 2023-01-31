@@ -3,12 +3,19 @@ class ListElement:
     def __init__(self, obj):
         self.obj = obj
         self.nextElem = None
+        self.before_elem = None
 
     def setNextElem(self, nextElem):
         self.nextElem = nextElem
 
     def getNextElem(self):
-        return self.nextElem
+        return self.nextElem        
+    
+    def setBeforeElem(self, before_elem):
+        self.before_elem = before_elem
+    
+    def getBeforeElem(self):
+        return self.before_elem
     
     def getObj(self):
         return self.obj
@@ -45,6 +52,16 @@ class List:
                     le.setNextElem(None)
                     break
             le = le.getNextElem()
+            
+    def count(self, o):
+        le = self.startElem.getNextElem()
+        c = 0
+        while le != None:
+            if le.getObj() == o:
+                c += 1
+            le = le.getNextElem()
+        return c
+            
         
     def find(self, o):
         le = self.startElem.getNextElem()
@@ -80,8 +97,40 @@ class List:
         while le != None:
             l = l + 1
             le = le.getNextElem()
-        print(l)
+        return l
     
+    #def copy(self):
+    #    l = self
+    #    return l
+    
+    #def clear(self):
+    #    while le != None:
+    #        pass
+    #        le = le.getNextElem()
+    
+    def getBeforeElement():
+        pass
+    
+    #TODO letztes element von standpunkt aus
+    
+    def sort(self, arr):
+        le = self.startElem.getNextElem()
+        l = -1
+        while le != None:
+            l = l + 1
+            le = le.getNextElem()
+        for i in range(1, l):
+            key = le.getObj()
+            le = le.getNextElem()
+ 
+            # Move elements of arr[0..i-1], that are
+            # greater than key, to one position ahead
+            # of their current position
+            j = i-1
+            while j >=0 and key < arr[j] :
+                arr[j+1] = arr[j]
+                j -= 1
+            arr[j+1] = key
 
 if __name__ == "__main__":
     list = List()
@@ -90,10 +139,13 @@ if __name__ == "__main__":
     list.addLast(3)
     list.addLast(4)
     list.addLast(5)
+    list.addLast(3)
     #list.insertAfter(2, 1)
     #list.delete(3)
     list.writeList()
-    list.length()
+    print(list.length())
+    print(list.count(3))
+    list.writeList()
     print("erstes Element: " + str(list.getFirstElem().getObj()))
     print("ist '3' enthalten? " + str(list.find(3)))
     print("ist '5' enthalten? " + str(list.find(5)))

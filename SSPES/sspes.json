@@ -1,0 +1,61 @@
+{
+    "players": {
+        "admin": {
+            "player": {
+                "won": 1000,
+                "schere": 0,
+                "stein": 1,
+                "papier": 0,
+                "echse": 0,
+                "spock": 0
+            },
+            "comp": {
+                "won": 0,
+                "schere": 0,
+                "stein": 0,
+                "papier": 0,
+                "echse": 1,
+                "spock": 0
+            },
+            "draw": 0
+        },
+        "werner": {
+            "player": {
+                "won": 4,
+                "schere": 4,
+                "stein": 1,
+                "papier": 1,
+                "echse": 1,
+                "spock": 2
+            },
+            "comp": {
+                "won": 2,
+                "schere": 1,
+                "stein": 3,
+                "papier": 1,
+                "echse": 0,
+                "spock": 4
+            },
+            "draw": 3
+        },
+        "test": {
+            "player": {
+                "won": 1,
+                "schere": 0,
+                "stein": 0,
+                "papier": 0,
+                "echse": 0,
+                "spock": 1
+            },
+            "comp": {
+                "won": 0,
+                "schere": 1,
+                "stein": 0,
+                "papier": 0,
+                "echse": 0,
+                "spock": 0
+            },
+            "draw": 0
+        }
+    }
+}
