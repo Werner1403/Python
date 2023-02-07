@@ -155,8 +155,23 @@ def heapSort(arr):
         heapify(arr, i, 0)
   
   
-arr = [1, 12, 9, 5, 6, 10]
-heapSort(arr)
-n = len(arr)
-print("Sorted array is")
-print(arr)
+#Binary Search----------------------------------------------------------------------
+# Array has to be sorted
+def binarySearch(array, x):
+    # Repeat until the pointers low and high meet each other
+    high = len(array)-1
+    low = 0
+    while low <= high:
+        mid = low + (high - low)//2
+        if array[mid] == x:
+            return mid
+        elif array[mid] < x:
+            low = mid + 1
+        else:
+            high = mid - 1
+    return "not found"
+
+array = [3, 4, 5, 6, 7, 8, 9]
+x = 4
+result = binarySearch(array, x)
+print(result)
