@@ -8,7 +8,6 @@ import PizzaStore.RostockPizzaStore;
 
 
 public class PizzaShop {
-
     public static void main(String[] args) {
         PizzaStore Berlin = new BerlinPizzaStore();
         PizzaStore Hamburg = new HamburgPizzaStore();
