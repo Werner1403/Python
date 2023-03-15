@@ -1,4 +1,4 @@
-package SchematicExample;
+package Wetterstation.PUSH;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,9 +15,9 @@ public abstract class Subject {
         observerList.remove(newObserver); 
     } 
 
-    protected void notifyObservers(int state){ 
+    protected void notifyObservers(int temp, int hum){ 
         for (Observer observer : observerList) { 
-            observer.update(state); 
+            observer.update(temp, hum); 
         } 
     } 
 }  

@@ -1,4 +1,4 @@
-package Python.Observer.BeispielZeitungsverlag;
+package BeispielZeitungsverlag;
 
 class FamilieFischer implements Abonnent { 
 

@@ -1,4 +1,4 @@
-package Python.Observer.SchematicExample;
+package SchematicExample;
 
 public interface Observer { 
 

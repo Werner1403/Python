@@ -1,4 +1,3 @@
-package Python.Observer.LibraryExample;
 
 public class Client { 
 

@@ -1,4 +1,4 @@
-package Python.Observer.SchematicExample;
+package SchematicExample;
 
 public class ConcreteObserverA implements Observer { 
 

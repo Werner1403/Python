@@ -1,4 +1,4 @@
-package Python.Observer.BeispielZeitungsverlag;
+package BeispielZeitungsverlag;
 
 import java.util.ArrayList;
 import java.util.List;
