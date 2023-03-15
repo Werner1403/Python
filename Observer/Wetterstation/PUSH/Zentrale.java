@@ -13,8 +13,8 @@ public class Zentrale extends Subject {
         notifyObservers(temp, hum); 
     } 
 
-    public int getState() { 
-        return temperature + humidity; 
+    public String getState() { 
+        return "temp: " + temperature + "humidity: " + humidity; 
     } 
 
 } 

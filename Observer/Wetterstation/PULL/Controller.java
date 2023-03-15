@@ -1,4 +1,4 @@
-package Wetterstation.PUSH;
+package Wetterstation.PULL;
 
 public class Controller { 
 
