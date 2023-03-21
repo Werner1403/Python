@@ -1,38 +1,37 @@
-class Node:
+class ListElement:
     def __init__(self, data):
         self.data = data
         self.prev = None
         self.next = None
 
 class DoppeltVerketteteListe:
-    def __init__(self):
+    def __init__(self): # O(1)
         self.head = None
         self.tail = None
         self.length = 0
 
-    def append(self, data):
-        new_node = Node(data)
+    def append(self, data): # O(1)
+        new_ListElement = ListElement(data)
         if self.length == 0:
-            self.head = new_node
-            self.tail = new_node
+            self.head = new_ListElement
+            self.tail = new_ListElement
         else:
-            self.tail.next = new_node
-            new_node.prev = self.tail
-            self.tail = new_node
+            self.tail.next = new_ListElement
+            self.tail = new_ListElement
         self.length += 1
 
-    def prepend(self, data):
-        new_node = Node(data)
+    def prepend(self, data): # O(1)
+        new_ListElement = ListElement(data)
         if self.length == 0:
-            self.head = new_node
-            self.tail = new_node
+            self.head = new_ListElement
+            self.tail = new_ListElement
         else:
-            new_node.next = self.head
-            self.head.prev = new_node
-            self.head = new_node
+            new_ListElement.next = self.head
+            self.head.prev = new_ListElement
+            self.head = new_ListElement
         self.length += 1
 
-    def insert(self, index, data):
+    def insert(self, index, data): # O(n)
         if index < 0 or index > self.length:
             raise IndexError("Index out of range")
 
@@ -41,16 +40,16 @@ class DoppeltVerketteteListe:
         elif index == self.length:
             self.append(data)
         else:
-            new_node = Node(data)
-            leader = self._traverse_to_index(index - 1)
+            new_ListElement = ListElement(data)
+            leader = self.go_to_index(index - 1)
             follower = leader.next
-            leader.next = new_node
-            new_node.prev = leader
-            new_node.next = follower
-            follower.prev = new_node
+            leader.next = new_ListElement
+            new_ListElement.prev = leader
+            new_ListElement.next = follower
+            follower.prev = new_ListElement
             self.length += 1
 
-    def remove(self, index):
+    def remove(self, index): # O(n)
         if index < 0 or index >= self.length:
             raise IndexError("Index out of range")
 
@@ -64,61 +63,74 @@ class DoppeltVerketteteListe:
             self.tail = self.tail.prev
             self.tail.next = None
         else:
-            leader = self._traverse_to_index(index - 1)
-            node_to_remove = leader.next
-            follower = node_to_remove.next
+            leader = self.go_to_index(index - 1)
+            ListElement_to_remove = leader.next
+            follower = ListElement_to_remove.next
             leader.next = follower
             follower.prev = leader
         self.length -= 1
 
-    def delete(self, value):
-            current_node = self.head
+    def delete(self, value): # O(n)
+            current_ListElement = self.head
 
-            while current_node:
-                if current_node.data == value:
-                    if current_node == self.head:
-                        self.head = current_node.next
+            while current_ListElement:
+                if current_ListElement.data == value:
+                    if current_ListElement == self.head:
+                        self.head = current_ListElement.next
                         if self.head:
                             self.head.prev = None
                         else:
                             self.tail = None
-                    elif current_node == self.tail:
-                        self.tail = current_node.prev
+                    elif current_ListElement == self.tail:
+                        self.tail = current_ListElement.prev
                         self.tail.next = None
                     else:
-                        current_node.prev.next = current_node.next
-                        current_node.next.prev = current_node.prev
+                        current_ListElement.prev.next = current_ListElement.next
+                        current_ListElement.next.prev = current_ListElement.prev
                     self.length -= 1
                     return
-                current_node = current_node.next
+                current_ListElement = current_ListElement.next
             raise ValueError("Value not found in list")
         
-    def get(self, index):
+    def get(self, index): # O(n)
         if index < 0 or index >= self.length:
             raise IndexError("Index out of range")
 
-        return self._traverse_to_index(index).data
+        return self.go_to_index(index).data
 
-    def _traverse_to_index(self, index):
-        current_node = self.head
+    def go_to_index(self, index): # O(n)
+        current_ListElement = self.head
         current_index = 0
 
         while current_index != index:
-            current_node = current_node.next
+            current_ListElement = current_ListElement.next
             current_index += 1
 
-        return current_node
+        return current_ListElement
+    
+    def clear(self): # O(1)
+        self.head = None
+        self.tail = None
+        self.length = 0
 
-    def __len__(self):
+    def reverse(self): # O(n)
+        current_element = self.head
+        self.head, self.tail = self.tail, self.head
+        while current_element:
+            current_element.prev, current_element.next = current_element.next, current_element.prev
+            current_element = current_element.prev 
+
+    def __len__(self): # O(1)
         return self.length
 
-    def __str__(self):
+    def __str__(self): # O(n)
         values = ""
-        current_node = self.head
-
-        while current_node:
-            values = values + '[' + (str(current_node.data)) + '],' if current_node.next != None else values + '[' + (str(current_node.data)) + ']'
-            current_node = current_node.next
+        current_ListElement = self.head
+        if self.length == 0:
+            return 'No Elements in List'
+        while current_ListElement:
+            values = values + '[' + (str(current_ListElement.data)) + '],' if current_ListElement.next != None else values + '[' + (str(current_ListElement.data)) + ']'
+            current_ListElement = current_ListElement.next
 
         return values
 
@@ -131,4 +143,21 @@ if __name__ == '__main__':
     list.insert(2,3)
     print(list)
     list.delete(4)
+    print(list)
+    list.prepend(0)
+    print(list)
+    list.insert(1,0.5)
+    print(list)
+    list1 = DoppeltVerketteteListe()
+    list1.append(1)
+    list1.append(2)
+    list1.append(3)
+    list1.reverse()
+    print(list1)
+    print(list)
+    list.clear()
+    print(list)
+    list.append(1)
+    print(list)
+    list.append(2)
     print(list)
