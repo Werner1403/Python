@@ -92,7 +92,7 @@ class DoppeltVerketteteListe:
                 current_ListElement = current_ListElement.next
             raise ValueError("Value not found in list")
         
-    def get(self, index): # O(n)
+    def getByIndex(self, index): # O(n)
         if index < 0 or index >= self.length:
             raise IndexError("Index out of range")
 
@@ -119,6 +119,18 @@ class DoppeltVerketteteListe:
         while current_element:
             current_element.prev, current_element.next = current_element.next, current_element.prev
             current_element = current_element.prev 
+
+    def sort(self):
+        for step in range(1, self.length):
+            key = self.go_to_index(step).data
+            j = step - 1       
+            while j >= 0 and key < self.go_to_index(j).data:
+                self.go_to_index(j + 1).data = self.go_to_index(j).data
+                j = j - 1
+            self.go_to_index(j + 1).data = key
+    
+    def pop(self):
+        return self.tail.data
 
     def __len__(self): # O(1)
         return self.length
@@ -161,3 +173,14 @@ if __name__ == '__main__':
     print(list)
     list.append(2)
     print(list)
+    print(list.pop())
+    list2 = DoppeltVerketteteListe()
+    list2.append(5)
+    list2.append(3)
+    list2.append(1)
+    list2.append(6)
+    list2.append(4)
+    list2.append(2)
+    print(list2)
+    list2.sort()
+    print(list2)

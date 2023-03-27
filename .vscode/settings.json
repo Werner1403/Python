@@ -2,6 +2,7 @@
     "java.project.sourcePaths": [
         "Factory",
         "Observer/LibraryExample",
-        "Observer"
+        "Observer",
+        "Proxy"
     ]
 }
