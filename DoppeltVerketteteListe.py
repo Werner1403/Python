@@ -34,7 +34,6 @@ class DoppeltVerketteteListe:
     def insert(self, index, data): # O(n)
         if index < 0 or index > self.length:
             raise IndexError("Index out of range")
-
         if index == 0:
             self.prepend(data)
         elif index == self.length:
@@ -72,7 +71,6 @@ class DoppeltVerketteteListe:
 
     def delete(self, value): # O(n)
             current_ListElement = self.head
-
             while current_ListElement:
                 if current_ListElement.data == value:
                     if current_ListElement == self.head:
@@ -95,17 +93,14 @@ class DoppeltVerketteteListe:
     def getByIndex(self, index): # O(n)
         if index < 0 or index >= self.length:
             raise IndexError("Index out of range")
-
         return self.go_to_index(index).data
 
     def go_to_index(self, index): # O(n)
         current_ListElement = self.head
         current_index = 0
-
         while current_index != index:
             current_ListElement = current_ListElement.next
             current_index += 1
-
         return current_ListElement
     
     def clear(self): # O(1)
@@ -113,14 +108,17 @@ class DoppeltVerketteteListe:
         self.tail = None
         self.length = 0
 
+#---------------------------------------------------------------------
     def reverse(self): # O(n)
         current_element = self.head
         self.head, self.tail = self.tail, self.head
         while current_element:
             current_element.prev, current_element.next = current_element.next, current_element.prev
             current_element = current_element.prev 
+#---------------------------------------------------------------------
 
-    def sort(self):
+    def sort(self): # O(n^2)
+        # Bubble-Sort
         for step in range(1, self.length):
             key = self.go_to_index(step).data
             j = step - 1       
@@ -129,7 +127,7 @@ class DoppeltVerketteteListe:
                 j = j - 1
             self.go_to_index(j + 1).data = key
     
-    def pop(self):
+    def pop(self): # O(1)
         return self.tail.data
 
     def __len__(self): # O(1)
@@ -143,7 +141,6 @@ class DoppeltVerketteteListe:
         while current_ListElement:
             values = values + '[' + (str(current_ListElement.data)) + '],' if current_ListElement.next != None else values + '[' + (str(current_ListElement.data)) + ']'
             current_ListElement = current_ListElement.next
-
         return values
 
 if __name__ == '__main__':
