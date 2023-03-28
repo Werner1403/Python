@@ -3,9 +3,9 @@ from tkinter import *
 class Table:   
     def __init__(self, root):
         lst = [("",'Einfach verkettet', 'doppelt verkettet', "ArrayList"), 
-                ("append", 'O(n)', 'O(1)', 'O(1)'), 
+                ("append", 'O(n)', 'O(1)', 'O(n)'), 
                 ("prepend", 'O(1)', 'O(1)', '---'), 
-                ("insert", 'O(n)', 'O(n)', 'O(n)'), 
+                ("insert", 'O(n)', 'O(n)', 'O(n)'), # evtl. 2n wegen kopieren des Arrays wenn zu groß
                 ("remove", 'O(n)', 'O(n)', 'O(1)'),
                 ("delete", 'O(n)', 'O(n)', '---'), 
                 ("getByIndex", 'O(n)', 'O(n)', 'O(1)'), 
