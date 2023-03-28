@@ -33,7 +33,8 @@ class DoppeltVerketteteListe:
 
     def insert(self, index, data): # O(n)
         if index < 0 or index > self.length:
-            raise IndexError("Index out of range")
+            print("Index out of range")
+            return
         if index == 0:
             self.prepend(data)
         elif index == self.length:
@@ -50,8 +51,8 @@ class DoppeltVerketteteListe:
 
     def remove(self, index): # O(n)
         if index < 0 or index >= self.length:
-            raise IndexError("Index out of range")
-
+            print("Index out of range")
+            return
         if index == 0:
             self.head = self.head.next
             if self.head:
@@ -88,11 +89,12 @@ class DoppeltVerketteteListe:
                     self.length -= 1
                     return
                 current_ListElement = current_ListElement.next
-            raise ValueError("Value not found in list")
+            print("Value not found in list")
         
     def getByIndex(self, index): # O(n)
         if index < 0 or index >= self.length:
-            raise IndexError("Index out of range")
+            print("Index out of range")
+            return
         return self.go_to_index(index).data
 
     def go_to_index(self, index): # O(n)
@@ -128,6 +130,9 @@ class DoppeltVerketteteListe:
             self.go_to_index(j + 1).data = key
     
     def pop(self): # O(1)
+        if self.length == 0:
+            print("Empty list!")
+            return
         return self.tail.data
 
     def __len__(self): # O(1)

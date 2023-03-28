@@ -25,18 +25,21 @@ class LinkedList:
         self.head = new_element
         self.length += 1
 
-    def insert(self, data, position): # O(n)
+    def insert(self, data, index): # O(n)
+        if index < 0 or index > self.length:
+            print("Index out of range!")
+            return
         new_element = ListElement(data)
-        if position == 0:
+        if index == 0:
             self.prepend(data)
         else:
-            element = self.go_to_index(position-1)
+            element = self.go_to_index(index - 1)
             new_element.next = element.next
             element.next = new_element
 
     def remove(self, index): # O(n)
         if index < 0 or index > self.length:
-            print("List Index out of range!")
+            print("Index out of range!")
             return
         element = self.go_to_index(index).data
         self.delete(element)
@@ -60,7 +63,7 @@ class LinkedList:
 
     def getByIndex(self, index): # O(n)
         if index < 0 or index >= self.length:
-            raise IndexError("Index out of range")
+            raise IndexError("Index out of range!")
         return self.go_to_index(index).data
     
     def go_to_index(self, index): # O(n)
@@ -98,6 +101,9 @@ class LinkedList:
             self.go_to_index(j + 1).data = key
 
     def pop(self): # O(n)
+        if self.length == 0:
+            print("Empty List!")
+            return
         current = self.head
         while current.next:
             current = current.next
