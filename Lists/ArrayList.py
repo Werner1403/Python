@@ -82,10 +82,12 @@ def main():
     a.sort()
     print(a)
 
-    root = Tk()
-    root.title("Aufwandsklassen") 
-    t = Table(root) 
-    root.mainloop() 
+    i = input("Tabelle anzeigen (y/n)?")
+    if i.lower() == "y":
+        root = Tk()
+        root.title("Aufwandsklassen") 
+        t = Table(root) 
+        root.mainloop() 
 
 if __name__ == "__main__":
     main()
