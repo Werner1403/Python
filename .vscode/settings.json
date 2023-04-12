@@ -1,8 +1,0 @@
-{
-    "java.project.sourcePaths": [
-        "Factory",
-        "Observer/LibraryExample",
-        "Observer",
-        "Proxy"
-    ]
-}
